@@ -1,2 +1,2 @@
-# nanos-mapvote
-A mapvote package
+
+# [Wiki](https://github.com/vugi99/nanos-mapvote/wiki)
