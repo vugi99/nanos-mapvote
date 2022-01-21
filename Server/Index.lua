@@ -11,27 +11,6 @@ function table_count(ta)
     return count
 end
 
-function split_str(str,sep)
-    local sep, fields = sep or ":", {}
-    local pattern = string.format("([^%s]+)", sep)
-    str:gsub(pattern, function(c) fields[#fields+1] = c end)
-    return fields
-end
-
-function isdir(strFolderName)
-	 local fileHandle, strError = io.open(strFolderName.."\\*.*","r")
-	 if fileHandle ~= nil then
-         io.close(fileHandle)
-         return true
-	 else
-         if string.match(strError,"No such file or directory") then
-             return false
-         else
-             return true
-         end
-	 end
-end
-
 Events.Subscribe("SelectMap", function(ply, map)
     local ply_id = ply:GetID()
     local Selected_map = SelectedMapPerPlayer[ply_id]
@@ -44,14 +23,10 @@ Events.Subscribe("SelectMap", function(ply, map)
     Events.BroadcastRemote("UpdateMapVotes", Votes)
 end)
 
-function IsAssetPack(asset_pack_name)
-    if isdir("Assets/" .. asset_pack_name) then
-        return true
-    end
-end
-
 function StartMapVote(mapvote_tbl)
     if not IsInMapVote() then
+        --print("NOT IsInMapVote()")
+
         local cur_map = Server.GetMap()
         for k, v in pairs(mapvote_tbl.maps) do
             if v.path == cur_map then
@@ -60,25 +35,11 @@ function StartMapVote(mapvote_tbl)
             end
         end
 
-        local new_mapvote_tbl = {}
-        new_mapvote_tbl.time = mapvote_tbl.time
-        new_mapvote_tbl.maps = {}
-        for k, v in pairs(mapvote_tbl.maps) do
-            if v then
-                local split_path = split_str(v.path, ":")
-                if (split_path[1] and split_path[2]) then
-                    if IsAssetPack(split_path[1]) then
-                        new_mapvote_tbl.maps[k] = v
-                    end
-                end
-            end
-        end
+        --print(NanosUtils.Dump(mapvote_tbl))
 
-        --print(NanosUtils.Dump(new_mapvote_tbl))
-
-        if table_count(new_mapvote_tbl.maps) > 0 then
+        if table_count(mapvote_tbl.maps) > 0 then
             Voting = true
-            Voting_Tbl = new_mapvote_tbl
+            Voting_Tbl = mapvote_tbl
             for k, v in pairs(Voting_Tbl.maps) do
                 Votes[k] = 0
             end
