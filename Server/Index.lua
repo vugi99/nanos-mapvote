@@ -11,7 +11,7 @@ function table_count(ta)
     return count
 end
 
-Events.Subscribe("SelectMap", function(ply, map)
+Events.SubscribeRemote("SelectMap", function(ply, map)
     local ply_id = ply:GetID()
     local Selected_map = SelectedMapPerPlayer[ply_id]
     if Selected_map then

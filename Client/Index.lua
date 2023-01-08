@@ -12,13 +12,13 @@ Mapvote_UI:Subscribe("SelectedNew", function(map)
     Events.CallRemote("SelectMap", map)
 end)
 
-Events.Subscribe("UpdateMapVotes", function(votesData)
+Events.SubscribeRemote("UpdateMapVotes", function(votesData)
     for k, v in pairs(votesData) do
         Mapvote_UI:CallEvent("MapvoteVotesUpdate", k, tostring(v))
     end
 end)
 
-Events.Subscribe("MapvoteStart", function(mapvoteData, votesData)
+Events.SubscribeRemote("MapvoteStart", function(mapvoteData, votesData)
     Client.SetMouseEnabled(true)
     Client.SetInputEnabled(false)
     Mapvote_UI:BringToFront()
