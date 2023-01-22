@@ -19,11 +19,11 @@ Events.SubscribeRemote("UpdateMapVotes", function(votesData)
 end)
 
 Events.SubscribeRemote("MapvoteStart", function(mapvoteData, votesData)
-    Client.SetMouseEnabled(true)
-    Client.SetInputEnabled(false)
+    Input.SetMouseEnabled(true)
+    Input.SetInputEnabled(false)
     Mapvote_UI:BringToFront()
     Mapvote_UI:SetFocus()
-    Mapvote_UI:SetVisible(true)
+    Mapvote_UI:SetVisibility(true)
     Mapvote_UI:CallEvent("MapvoteStart", JSON.stringify(mapvoteData))
 
     if votesData then

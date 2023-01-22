@@ -25,7 +25,6 @@ end)
 
 function StartMapVote(mapvote_tbl)
     if not IsInMapVote() then
-        --print("NOT IsInMapVote()")
 
         local cur_map = Server.GetMap()
         for k, v in pairs(mapvote_tbl.maps) do
