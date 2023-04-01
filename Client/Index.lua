@@ -3,7 +3,7 @@
 Mapvote_UI = WebUI(
     "Mapvote UI",
     "file:///ui/index.html",
-    false,
+    WidgetVisibility.Hidden,
     true,
     true
 )
@@ -23,7 +23,7 @@ Events.SubscribeRemote("MapvoteStart", function(mapvoteData, votesData)
     Input.SetInputEnabled(false)
     Mapvote_UI:BringToFront()
     Mapvote_UI:SetFocus()
-    Mapvote_UI:SetVisibility(true)
+    Mapvote_UI:SetVisibility(WidgetVisibility.Visible)
     Mapvote_UI:CallEvent("MapvoteStart", JSON.stringify(mapvoteData))
 
     if votesData then
