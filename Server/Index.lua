@@ -27,8 +27,9 @@ function StartMapVote(mapvote_tbl)
     if not IsInMapVote() then
 
         local cur_map = Server.GetMap()
+        local cur_map_asset = Server.GetMapAsset()
         for k, v in pairs(mapvote_tbl.maps) do
-            if v.path == cur_map then
+            if (v.path == cur_map or v.path == cur_map_asset) then
                 mapvote_tbl.maps[k] = nil
                 break
             end
