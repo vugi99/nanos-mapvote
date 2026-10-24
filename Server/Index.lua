@@ -20,7 +20,7 @@ Events.SubscribeRemote("SelectMap", function(ply, map)
     SelectedMapPerPlayer[ply_id] = map
     Votes[map] = Votes[map] + 1
 
-    Events.BroadcastRemote("UpdateMapVotes", Votes)
+    Events.BroadcastRemote("UpdateMapVotes", Reliability.Reliable, Votes)
 end)
 
 function StartMapVote(mapvote_tbl)
@@ -45,7 +45,7 @@ function StartMapVote(mapvote_tbl)
             end
 
 
-            Events.BroadcastRemote("MapvoteStart", mapvote_tbl)
+            Events.BroadcastRemote("MapvoteStart", Reliability.Reliable, mapvote_tbl)
 
             Timer.SetTimeout(function()
                 local max_votes = 0
@@ -77,6 +77,6 @@ Package.Export("IsInMapVote", IsInMapVote)
 
 Player.Subscribe("Spawn", function(ply)
     if IsInMapVote() then
-        Events.CallRemote("MapvoteStart", ply, Voting_Tbl, Votes)
+        Events.CallRemote("MapvoteStart", ply, Reliability.Reliable, Voting_Tbl, Votes)
     end
 end)

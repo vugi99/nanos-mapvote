@@ -9,7 +9,7 @@ Mapvote_UI = WebUI(
 )
 
 Mapvote_UI:Subscribe("SelectedNew", function(map)
-    Events.CallRemote("SelectMap", map)
+    Events.CallRemote("SelectMap", Reliability.Reliable, map)
 end)
 
 Events.SubscribeRemote("UpdateMapVotes", function(votesData)
